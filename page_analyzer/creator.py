@@ -5,7 +5,7 @@ import datetime
 
 
 load_dotenv()
-date_time = datetime.date.today()
+date_time = datetime.datetime.now()#datetime.date.today()
 DATABASE_URL = os.getenv("DATABASE_URL")
 conn = psycopg2.connect(DATABASE_URL)
 conn.autocommit = True
@@ -18,6 +18,7 @@ def add_to_database(url):
                 VALUES ('{url}', '{date_time}');
             """
         )
+        cursor.execute(f"INSERT INTO all_site (urls_name) VALUES ('{url}');")
         cursor.execute(f"SELECT * FROM urls WHERE name = '{url}';")
         new_url = cursor.fetchone()
         return new_url 
@@ -34,7 +35,7 @@ def data_url(id):
 
 def data_all():
     with conn.cursor() as cursor:
-        cursor.execute("SELECT * FROM urls;")
+        cursor.execute("SELECT * FROM urls ORDER BY id DESC;")
         all_data = cursor.fetchall()
         return all_data
     conn.close()
@@ -47,4 +48,32 @@ def check_in_db(name):
         return name_data
     conn.close()
 
-#print(check_in_db('http://mail.ru'))
+
+def add_to_url_checks(id):
+    date_time = datetime.datetime.now()
+    with conn.cursor() as cursor:
+        cursor.execute(
+            f"""INSERT INTO url_checks (url_id, created_at)
+                VALUES ('{id}', '{date_time}');
+            """
+        )
+        cursor.execute(
+            f"UPDATE all_site SET last_check = '{date_time}' WHERE id = '{id}';"
+        )
+    #conn.close()
+
+
+def data_all_url_checks(id):
+    with conn.cursor() as cursor:
+        cursor.execute(f"SELECT * FROM url_checks WHERE url_id = '{id}' ORDER BY id DESC;")
+        data_ckecks = cursor.fetchall()
+        return data_ckecks
+    conn.close()
+
+
+def data_all_all_site():
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT * FROM all_site ORDER BY id DESC;")
+        data_all_all_site = cursor.fetchall()
+        return data_all_all_site
+    conn.close()

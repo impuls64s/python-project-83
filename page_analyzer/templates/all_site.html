@@ -33,7 +33,6 @@
       <h1>Сайты</h1>
 
 <!-- Блок вывода таблиы во всеми значениями в БД -->
-
 <div class="table-responsive">
   <table class="table table-bordered table-hover text-nowrap" data-test="urls">
     <tbody>
@@ -44,11 +43,15 @@
         <th>Код ответа</th>
       </tr>
       
-      {% for n in data %}
+      {% for n in data_all_site %}
       <tr>
         <td>{{n[0]}}</td>
         <td><a href="/urls/{{n[0]}}">{{n[1]}}</a></td>
-        <td></td>
+        
+        {% if n[2] %}
+          <td>{{n[2]}}</td>
+        {% endif %}
+        
         <td></td>
       </tr>
       {% endfor %}
