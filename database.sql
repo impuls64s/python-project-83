@@ -20,7 +20,3 @@ CREATE TABLE all_site (
     last_check  timestamp,
     status_code int
 );
-
-
-SELECT DISTINCT ON(urls.id) urls.id, name, url_checks.created_at AS last_check, status_code 
-FROM urls JOIN url_checks ON urls.id = url_checks.url_id;

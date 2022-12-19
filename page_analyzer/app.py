@@ -3,6 +3,8 @@ from .creator import add_to_database, data_url, data_all, check_in_db, add_to_ur
 import validators
 import os
 from urllib.parse import urlparse
+from .status import valid_status
+from .parser_url import data_from_html
 
 
 app = Flask(__name__)
@@ -22,7 +24,7 @@ def url_add():
         normalize_url = (f"{a.scheme}://{a.hostname}")
         
         if check_in_db(normalize_url):
-            flash('Страница уже существует', 'info')
+            flash('Страница уже существует', 'success')
             iid = list(check_in_db(normalize_url))
             return redirect(url_for('url_id', id=str(iid[0])))
         
@@ -53,6 +55,12 @@ def url_id(id):
 # добавления в таблицу url_cheks нового id и возврат всех данных где id = id функции
 @app.post('/urls/<id>/checks')
 def checks(id):
-    add_to_url_checks(id)
-    flash('Страница успешно проверена', 'success')
+    name_url_check = (data_url(id))[1]
+    
+    if valid_status(name_url_check) == 200:
+        info_from_url = data_from_html(name_url_check)
+        add_to_url_checks(id, info_from_url)
+        flash('Страница успешно проверена', 'success')
+    else:
+        flash('Произошла ошибка при проверке', 'error')
     return redirect(url_for('url_id', id=id))

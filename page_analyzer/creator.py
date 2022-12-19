@@ -49,16 +49,20 @@ def check_in_db(name):
     conn.close()
 
 
-def add_to_url_checks(id):
+def add_to_url_checks(id, dict_data):
     date_time = datetime.datetime.now()
     with conn.cursor() as cursor:
         cursor.execute(
-            f"""INSERT INTO url_checks (url_id, created_at)
-                VALUES ('{id}', '{date_time}');
+            f"""INSERT INTO url_checks 
+            (url_id, created_at, status_code, h1, title, description)
+            VALUES ('{id}', '{date_time}', 200, '{dict_data.get('h1', ' ')}', '{dict_data.get("title", ' ')}', '{dict_data.get("description", ' ')}');
             """
         )
         cursor.execute(
-            f"UPDATE all_site SET last_check = '{date_time}' WHERE id = '{id}';"
+            f"""UPDATE all_site SET
+            last_check = '{date_time}',
+            status_code = '200'
+            WHERE id = '{id}';"""
         )
     #conn.close()
 
