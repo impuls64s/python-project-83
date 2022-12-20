@@ -21,6 +21,6 @@ def data_from_html(url):
     if soup.find(attrs={"name": "description"}):
         data_html_dict["description"] = (
             soup.find(attrs={"name": "description"})['content'].strip()
-            )
+        )
 
     return data_html_dict

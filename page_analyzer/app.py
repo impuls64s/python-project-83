@@ -38,7 +38,7 @@ def url_add():
     flash('Некорректный URL', 'error')
     messages = get_flashed_messages(with_categories=True)
     return render_template(
-        'index.html',  messages=messages, data=name_url), 422
+        'index.html', messages=messages, data=name_url), 422
 
 
 @app.get('/urls')
@@ -56,7 +56,7 @@ def url_id(id):
         'item.html', data=data,
         messages=messages,
         data_checks=data_checks
-        )
+    )
 
 
 @app.post('/urls/<id>/checks')

@@ -72,7 +72,7 @@ def data_all_url_checks(id):
     with conn.cursor() as cursor:
         cursor.execute(
             f"SELECT * FROM url_checks WHERE url_id = '{id}' ORDER BY id DESC;"
-            )
+        )
         data_ckecks = cursor.fetchall()
         conn.close()
         return data_ckecks
