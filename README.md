@@ -2,7 +2,7 @@
 [![Actions Status](https://github.com/impuls64s/python-project-83/workflows/hexlet-check/badge.svg)](https://github.com/impuls64s/python-project-83/actions)
 [![flake8 Lint](https://github.com/impuls64s/python-project-83/actions/workflows/lint.yml/badge.svg)](https://github.com/impuls64s/python-project-83/actions/workflows/lint.yml)
 
-<p>Анализатор страниц - проверяет доступность сайта и записывает данные (ststus code, h1, title, description) в базу данных Postgresql.</p>
+<p>Анализатор страниц - проверяет доступность сайта и записывает данные (ststus code, h1, title, description) в базу данных Postgresql. При разработке использовался <b>Flask</b> и <b>Poetry.</b></p>
 
 <a target="_blank" href="https://imageban.ru/show/2022/12/20/14d7916f7fee0813bf8506096424f8ad/png"><img src="https://i1.imageban.ru/out/2022/12/20/14d7916f7fee0813bf8506096424f8ad.png" border="0" style='border: 1px solid #000000'></a>
 <p>Для правильной работы необходимо созлать файл <b>.env</b> в корне проекта , и записать туда свои переменные окружения.</p>
